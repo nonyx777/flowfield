@@ -1,6 +1,7 @@
 mod engine;
 mod entities{
     pub mod ball;
+    pub mod r#box;
 }
 mod operations;
 
