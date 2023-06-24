@@ -14,7 +14,7 @@ pub struct Box<'a>{
 impl Box<'_>{
     pub fn new(size: Vector2f, position: Vector2f) -> Self{
         let mut property = RectangleShape::new();
-        property.set_fill_color(Color::TRANSPARENT);
+        property.set_fill_color(Color::WHITE);
         property.set_size(size);
         property.set_position(position);
 
