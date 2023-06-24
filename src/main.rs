@@ -1,5 +1,4 @@
 mod engine;
-mod collisions;
 mod entities{
     pub mod ball;
 }
