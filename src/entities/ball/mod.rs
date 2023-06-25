@@ -51,7 +51,8 @@ impl Ball<'_>{
         
 
         let mut desired: Vector2f = grid[x][y];
-        desired = operations::normalize(desired);
+        // desired = operations::normalize(desired);
+        println!("{}, {}", desired.x, desired.y);
         desired *= self.max_speed;
 
         //let steer: Vector2f = desired - self.getVelocity();

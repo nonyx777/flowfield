@@ -38,7 +38,7 @@ impl Engine<'_>{
         Self::gridLayout(&mut grid, size);
 
         //instantiating ball
-        let ball: ball::Ball = ball::Ball::new(10_f32);
+        let ball: ball::Ball = ball::Ball::new(1_f32);
         //initializing mouse position variable
         let mouse_position_view: Vector2f = Vector2f::default();
         Engine { 
@@ -94,9 +94,8 @@ impl Engine<'_>{
     pub fn gridAdjustVector(&mut self){
         for i in 0..160{
             for j in 0..160{
-                self.grid_vector[i][j] = self.mouse_position_view - self.grid[i][j];
-                // self.grid_vector[i][j] = Vector2f::new(1_f32, 0_f32);
-                // println!("{}, {}", vector.x, vector.y);
+                self.grid_vector[i][j] = operations::normalize(self.mouse_position_view - self.grid[i][j]);
+                // self.grid_vector[i][j] = Vector2f::new(1_f32, 1_f32);
             }
         }
     }
