@@ -24,8 +24,8 @@ impl Ball<'_>{
         property.set_origin((radius, radius));
         property.set_position(Vector2f::new(800_f32/2_f32, 800_f32/2_f32));
 
-        let max_speed: f32 = 2_f32;
-        let max_force: f32 = 0.5_f32;
+        let max_speed: f32 = 5_f32;
+        let max_force: f32 = 0.05_f32;
 
         Ball {
             property,
@@ -38,32 +38,30 @@ impl Ball<'_>{
     }
 
     //updater and displayer
-    pub fn update(&mut self, grid: &[[Vector2f; 160];160]){
+    pub fn update(&mut self, grid: &[[Vector2f; 40];40]){
         self.seek(grid);
     }
     pub fn render(&mut self, target: &mut dyn RenderTarget){
         target.draw(&self.property);
     }
 
-    pub fn seek(&mut self, grid: &[[Vector2f;160];160]){
-        let x: usize = ((self.getPosition().x/5_f32).floor()) as usize;
-        let y: usize = ((self.getPosition().y/5_f32).floor()) as usize;
+    pub fn seek(&mut self, grid: &[[Vector2f;40];40]){
+        let x: usize = ((self.getPosition().x/20_f32).floor()) as usize;
+        let y: usize = ((self.getPosition().y/20_f32).floor()) as usize;
         
 
         let mut desired: Vector2f = grid[x][y];
-        // desired = operations::normalize(desired);
-        println!("{}, {}", desired.x, desired.y);
         desired *= self.max_speed;
 
-        //let steer: Vector2f = desired - self.getVelocity();
+        let steer: Vector2f = desired - self.getVelocity();
 
         //integration
-        // self.setAcceleration(Vector2f::default());
-        // self.setVelocity(desired);
-        self.property.move_(desired);
+        self.setAcceleration(steer * self.max_force);
+        self.setVelocity(self.getVelocity() + self.getAcceleration());
+        self.property.set_position(self.getPosition() + self.getVelocity() * 0.5_f32);
 
         //revert acceleration
-        // self.setAcceleration(Vector2f::default());
+        self.setAcceleration(Vector2f::default());
     }
 
     //accessors and mutators
