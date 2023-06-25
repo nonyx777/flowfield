@@ -38,31 +38,31 @@ impl Ball<'_>{
     }
 
     //updater and displayer
-    pub fn update(&mut self, grid: &[[Vector2f; 40];40]){
+    pub fn update(&mut self, grid: &[[Vector2f; 160];160]){
         self.seek(grid);
     }
     pub fn render(&mut self, target: &mut dyn RenderTarget){
         target.draw(&self.property);
     }
 
-    pub fn seek(&mut self, grid: &[[Vector2f;40];40]){
-        let x: usize = ((self.getPosition().x/20_f32).floor()) as usize;
-        let y: usize = ((self.getPosition().y/20_f32).floor()) as usize;
+    pub fn seek(&mut self, grid: &[[Vector2f;160];160]){
+        let x: usize = ((self.getPosition().x/5_f32).floor()) as usize;
+        let y: usize = ((self.getPosition().y/5_f32).floor()) as usize;
         
 
         let mut desired: Vector2f = grid[x][y];
-        //desired = operations::normalize(desired);
-        //desired *= self.max_speed;
+        desired = operations::normalize(desired);
+        desired *= self.max_speed;
 
         //let steer: Vector2f = desired - self.getVelocity();
 
         //integration
-        self.setAcceleration(Vector2f::default());
-        self.setVelocity(desired);
-        self.property.move_(self.getVelocity() * 0.5);
+        // self.setAcceleration(Vector2f::default());
+        // self.setVelocity(desired);
+        self.property.move_(desired);
 
         //revert acceleration
-        self.setAcceleration(Vector2f::default());
+        // self.setAcceleration(Vector2f::default());
     }
 
     //accessors and mutators

@@ -10,7 +10,8 @@ use crate::operations;
 pub struct Engine<'a>{
     window: RenderWindow,
     //grid related variables
-    grid: [[Vector2f; 40];40],
+    grid: [[Vector2f; 160];160],
+    grid_vector: [[Vector2f; 160];160],
     size: u32,
     row: u32,
     col: u32,
@@ -29,19 +30,21 @@ impl Engine<'_>{
         window.set_framerate_limit(60);
 
         //initializing grid
-        let size: u32 = 20;
+        let size: u32 = 5;
         let row: u32 = window.size().y/size;
         let col: u32 = window.size().x/size;
-        let mut grid: [[Vector2f; 40];40] = [[Vector2f::default();40];40];
+        let mut grid: [[Vector2f; 160];160] = [[Vector2f::default();160];160];
+        let grid_vector: [[Vector2f; 160];160] = [[Vector2f::default();160];160];
         Self::gridLayout(&mut grid, size);
 
         //instantiating ball
-        let ball: ball::Ball = ball::Ball::new(1_f32);
+        let ball: ball::Ball = ball::Ball::new(10_f32);
         //initializing mouse position variable
         let mouse_position_view: Vector2f = Vector2f::default();
         Engine { 
             window,
             grid,
+            grid_vector,
             size,
             row,
             col,
@@ -69,8 +72,8 @@ impl Engine<'_>{
         self.mouse_position_view = self.window.map_pixel_to_coords(self.window.mouse_position(), self.window.view());
 
         //.....
-        Self::gridAdjustVector(&mut self.grid, &self.mouse_position_view);
-        self.ball.update(&self.grid);
+        self.gridAdjustVector();
+        self.ball.update(&self.grid_vector);
     }
 
     pub fn render(&mut self) {
@@ -80,20 +83,20 @@ impl Engine<'_>{
     }
 
     //custom functions
-    pub fn gridLayout(grid: &mut [[Vector2f; 40];40], size: u32){
-        for i in 0..40{
-            for j in 0..40{
+    pub fn gridLayout(grid: &mut [[Vector2f; 160];160], size: u32){
+        for i in 0..160{
+            for j in 0..160{
                 grid[i][j] = Vector2f::new(j as f32 * size as f32, i as f32 * size as f32);
             }
         }
     }
 
-    pub fn gridAdjustVector(grid: &mut[[Vector2f; 40];40], vector: &Vector2f){
-        for i in 0..40{
-            for j in 0..40{
-                //grid[i][j] = *vector - grid[i][j];
-                grid[i][j] = Vector2f::new(0_f32, -1_f32);
-                println!("{}, {}", vector.x, vector.y);
+    pub fn gridAdjustVector(&mut self){
+        for i in 0..160{
+            for j in 0..160{
+                self.grid_vector[i][j] = self.mouse_position_view - self.grid[i][j];
+                // self.grid_vector[i][j] = Vector2f::new(1_f32, 0_f32);
+                // println!("{}, {}", vector.x, vector.y);
             }
         }
     }
