@@ -1,5 +1,6 @@
 #[allow(non_snake_case)]
 
+use rand::Rng;
 use std::f64;
 use std::time;
 use sfml::graphics::*;
