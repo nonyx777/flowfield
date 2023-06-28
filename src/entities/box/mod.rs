@@ -8,7 +8,8 @@ pub struct Box<'a>{
     size: Vector2f,
     position: Vector2f,
     velocity: Vector2f,
-    acceleration: Vector2f
+    acceleration: Vector2f,
+    cost: u32,
 }
 
 impl Box<'_>{
@@ -20,12 +21,16 @@ impl Box<'_>{
         property.set_size(size);
         property.set_position(position);
 
+        //defualt cost
+        let cost: u32 = 1;
+
         Box {
             property,
             size,
             position: Vector2f::default(),
             velocity: Vector2f::default(),
-            acceleration: Vector2f::default()
+            acceleration: Vector2f::default(),
+            cost
         }
     }
 
