@@ -11,7 +11,6 @@ pub struct Engine<'a>{
     window: RenderWindow,
     //grid related variables
     grid: [[Vector2f; 40];40],
-    grid_vector: [[Vector2f; 40];40],
     size: u32,
     row: u32,
     col: u32,
@@ -35,7 +34,6 @@ impl Engine<'_>{
         let row: u32 = window.size().y/size;
         let col: u32 = window.size().x/size;
         let mut grid: [[Vector2f; 40];40] = [[Vector2f::default();40];40];
-        let grid_vector: [[Vector2f; 40];40] = [[Vector2f::default();40];40];
         
         //instantiating ball
         let ball: ball::Ball = ball::Ball::new(20_f32);
@@ -47,7 +45,6 @@ impl Engine<'_>{
         Engine { 
             window,
             grid,
-            grid_vector,
             size,
             row,
             col,
@@ -77,7 +74,7 @@ impl Engine<'_>{
 
         //.....
         self.gridAdjustVector();
-        self.ball.update(&self.grid_vector);
+        self.ball.update(&self.grid);
     }
 
     pub fn render(&mut self) {
@@ -107,8 +104,7 @@ impl Engine<'_>{
     pub fn gridAdjustVector(&mut self){
         for i in 0..40{
             for j in 0..40{
-                self.grid_vector[i][j] = operations::normalize(self.grid[39][39] - self.grid[i][j]);
-                // self.grid_vector[i][j] = Vector2f::new(1_f32, 1_f32);
+                self.grid[i][j] = Vector2f::new(1_f32, 1_f32);
             }
         }
     }
