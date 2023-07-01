@@ -1,5 +1,5 @@
-use sfml::window::{ContextSettings, Style};
-use sfml::graphics::{Color, RenderWindow, RenderTarget, Transformable, RectangleShape};
+use sfml::window::{ContextSettings, Style, mouse};
+use sfml::graphics::{Color, RenderWindow, RenderTarget, Transformable, RectangleShape, Shape};
 use sfml::window::Event;
 use sfml::system::*;
 
@@ -11,11 +11,12 @@ pub struct Engine<'a>{
     window: RenderWindow,
     //grid related variables
     size: u32,
-    row: u32,
-    col: u32,
+    row: usize,
+    col: usize,
     ball: ball::Ball<'a>,
     mouse_position_view: Vector2f,
-    grid: Vec<Vec<r#box::Box<'a>>>
+    grid: Vec<Vec<r#box::Box<'a>>>,
+    selected_cell: Vector2i
 }
 
 impl Engine<'_>{
@@ -30,8 +31,8 @@ impl Engine<'_>{
 
         //initializing grid
         let size: u32 = 20;
-        let row: u32 = window.size().y/size;
-        let col: u32 = window.size().x/size;
+        let row: usize = 0;
+        let col: usize = 0;
         
         //instantiating ball
         let ball: ball::Ball = ball::Ball::new(20_f32);
@@ -40,6 +41,8 @@ impl Engine<'_>{
         //initializing vector
         let mut grid: Vec<Vec<r#box::Box<'_>>> = Vec::new();
         Self::gridLayout(size, &mut grid);
+        //initialize variable
+        let selected_cell: Vector2i = Vector2i::default();
         Engine { 
             window,
             size,
@@ -47,7 +50,8 @@ impl Engine<'_>{
             col,
             ball,
             mouse_position_view,
-            grid
+            grid,
+            selected_cell
         }
     }
 
@@ -69,6 +73,8 @@ impl Engine<'_>{
         //getting mouse position
         self.mouse_position_view = self.window.map_pixel_to_coords(self.window.mouse_position(), self.window.view());
 
+        self.destSelection();
+
         //.....
         //self.ball.update(&self.grid);
     }
@@ -76,11 +82,11 @@ impl Engine<'_>{
     pub fn render(&mut self) {
         self.window.clear(Color::BLACK);
         self.ball.render(&mut self.window);
-        // for i in 0..40{
-        //     for j in 0..40{
-        //         self.box_container[i][j].render(&mut self.window);
-        //     }
-        // }
+         for i in 0..40{
+             for j in 0..40{
+                 self.grid[i][j].render(&mut self.window);
+             }
+         }
         self.window.display();
     }
 
@@ -98,5 +104,20 @@ impl Engine<'_>{
 
     pub fn gridAdjustVector(&mut self){
         //...
+    }
+
+    pub fn destSelection(&mut self){
+        if mouse::Button::Left.is_pressed(){
+            //reverting the previous selected cell
+            self.grid[self.selected_cell.y as usize][self.selected_cell.x as usize].property.set_fill_color(Color::TRANSPARENT);
+
+            self.col = ((self.mouse_position_view.x/self.size as f32).floor()) as usize;
+            self.row = ((self.mouse_position_view.y/self.size as f32).floor()) as usize;
+            self.grid[self.row][self.col].property.set_fill_color(Color::RED);
+            self.grid[self.row][self.col].cost = 0;
+            //saving selected cell
+            self.selected_cell = Vector2i::new(self.col as i32, self.row as i32);
+        }
+
     }
 }

@@ -9,7 +9,7 @@ pub struct Box<'a>{
     position: Vector2f,
     velocity: Vector2f,
     acceleration: Vector2f,
-    cost: u32,
+    pub cost: u32,
 }
 
 impl Box<'_>{
