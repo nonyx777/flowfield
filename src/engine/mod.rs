@@ -10,13 +10,12 @@ use crate::operations;
 pub struct Engine<'a>{
     window: RenderWindow,
     //grid related variables
-    grid: [[Vector2f; 40];40],
     size: u32,
     row: u32,
     col: u32,
     ball: ball::Ball<'a>,
     mouse_position_view: Vector2f,
-    box_container: Vec<Vec<r#box::Box<'a>>>
+    grid: Vec<Vec<r#box::Box<'a>>>
 }
 
 impl Engine<'_>{
@@ -33,24 +32,22 @@ impl Engine<'_>{
         let size: u32 = 20;
         let row: u32 = window.size().y/size;
         let col: u32 = window.size().x/size;
-        let mut grid: [[Vector2f; 40];40] = [[Vector2f::default();40];40];
         
         //instantiating ball
         let ball: ball::Ball = ball::Ball::new(20_f32);
         //initializing mouse position variable
         let mouse_position_view: Vector2f = Vector2f::default();
         //initializing vector
-        let mut box_container: Vec<Vec<r#box::Box<'_>>> = Vec::new();
-        Self::gridLayout(&mut grid, size, &mut box_container);
+        let mut grid: Vec<Vec<r#box::Box<'_>>> = Vec::new();
+        Self::gridLayout(size, &mut grid);
         Engine { 
             window,
-            grid,
             size,
             row,
             col,
             ball,
             mouse_position_view,
-            box_container
+            grid
         }
     }
 
@@ -73,8 +70,7 @@ impl Engine<'_>{
         self.mouse_position_view = self.window.map_pixel_to_coords(self.window.mouse_position(), self.window.view());
 
         //.....
-        self.gridAdjustVector();
-        self.ball.update(&self.grid);
+        //self.ball.update(&self.grid);
     }
 
     pub fn render(&mut self) {
@@ -89,23 +85,18 @@ impl Engine<'_>{
     }
 
     //custom functions
-    pub fn gridLayout(grid: &mut [[Vector2f; 40];40], size: u32, box_container: &mut Vec<Vec<r#box::Box>>){
+    pub fn gridLayout(size: u32, grid: &mut Vec<Vec<r#box::Box>>){
         for i in 0..40{
             let mut box_vec: Vec<r#box::Box> = Vec::new(); 
             for j in 0..40{
-                grid[i][j] = Vector2f::new(j as f32 * size as f32, i as f32 * size as f32);
                 let _box: r#box::Box = r#box::Box::new(Vector2f::new(20_f32, 20_f32), Vector2f::new(j as f32 * size as f32, i as f32 * size as f32));
                 box_vec.push(_box);
             }
-            box_container.push(box_vec);
+            grid.push(box_vec);
         }
     }
 
     pub fn gridAdjustVector(&mut self){
-        for i in 0..40{
-            for j in 0..40{
-                self.grid[i][j] = Vector2f::new(1_f32, 1_f32);
-            }
-        }
+        //...
     }
 }

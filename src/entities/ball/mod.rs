@@ -8,6 +8,7 @@ use sfml::system::*;
 use sfml::window::{Key};
 
 use crate::operations;
+use crate::entities::r#box;
 
 pub struct Ball<'a>{
     pub property: CircleShape<'a>,
@@ -39,19 +40,19 @@ impl Ball<'_>{
     }
 
     //updater and displayer
-    pub fn update(&mut self, grid: &[[Vector2f; 40];40]){
+    pub fn update(&mut self, grid: &Vec<Vec<r#box::Box>>){
         self.seek(grid);
     }
     pub fn render(&mut self, target: &mut dyn RenderTarget){
         target.draw(&self.property);
     }
 
-    pub fn seek(&mut self, grid: &[[Vector2f;40];40]){
+    pub fn seek(&mut self, grid: &Vec<Vec<r#box::Box>>){
         let x: usize = ((self.getPosition().x/20_f32).floor()) as usize;
         let y: usize = ((self.getPosition().y/20_f32).floor()) as usize;
         
 
-        let mut desired: Vector2f = grid[x][y];
+        let mut desired: Vector2f = grid[x][y].property.position();
         desired *= self.max_speed;
 
         let steer: Vector2f = desired - self.getVelocity();
