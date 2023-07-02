@@ -110,7 +110,9 @@ impl Engine<'_>{
         if mouse::Button::Left.is_pressed(){
             //reverting the previous selected cell
             self.grid[self.selected_cell.y as usize][self.selected_cell.x as usize].property.set_fill_color(Color::TRANSPARENT);
+            self.grid[self.selected_cell.y as usize][self.selected_cell.x as usize].cost = 1;
 
+            //getting the new selected cell
             self.col = ((self.mouse_position_view.x/self.size as f32).floor()) as usize;
             self.row = ((self.mouse_position_view.y/self.size as f32).floor()) as usize;
             self.grid[self.row][self.col].property.set_fill_color(Color::RED);
