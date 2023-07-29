@@ -19,7 +19,7 @@ Cell::Cell(sf::Vector2f size, sf::Vector2f position){
 
 //defining functions
 void Cell::update(){
-    
+    //...
 }
 void Cell::render(sf::RenderTarget* target){
     target->draw(this->cell_property);
