@@ -12,8 +12,9 @@ Cell::Cell(sf::Vector2f size, sf::Vector2f position){
     this->cell_property.setFillColor(sf::Color::Transparent);
     this->cell_property.setOutlineColor(sf::Color::White);
     this->cell_property.setOutlineThickness(0.5f);
-    this->cell_property.setSize(this->size);
-    this->cell_property.setPosition(position);
+    this->cell_property.setSize(sf::Vector2f(1.f, size.y));
+    this->cell_property.setPosition(sf::Vector2f((size.x - 2)+ position.x, position.y));
+    this->cell_property.setRotation(45);
 
 }
 
