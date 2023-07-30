@@ -15,6 +15,7 @@ class Cell{
     
     public:
         sf::Vector2f size;
+        sf::Vector2f direction;
 
     public:
         void update();
