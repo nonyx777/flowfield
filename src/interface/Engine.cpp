@@ -57,6 +57,8 @@ void Engine::update(){
     this->mouse_position = sf::Mouse::getPosition(*this->window);
     this->mouse_position_view = this->window->mapPixelToCoords(this->mouse_position);
 
+    this->agent.update(this->grid_vector, this->size);
+
     // for(int i = 0; i < this->grid_vector.size(); i++){
     //     for(int j = 0; j < this->grid_vector[i].size(); j++){
     //         this->grid_vector[i][j].update();
@@ -72,6 +74,8 @@ void Engine::render(){
         }
     }
 
+    this->agent.render(this->window);
+
     this->window->draw(this->text);
 
     this->window->display();
@@ -82,7 +86,7 @@ void Engine::configureGridLayout(int column, int row){
     for(int i = 0; i < this->row; i++){
         std::vector<Cell> vec_in;
         for(int j = 0; j < this->column; j++){
-            Cell cell = Cell(sf::Vector2f(this->size, this->size), sf::Vector2f(j * this->size, i * this->size), 90.f);
+            Cell cell = Cell(sf::Vector2f(this->size, this->size), sf::Vector2f(j * this->size, i * this->size), 180.f);
             cell.column = j;
             cell.row = i;
             vec_in.push_back(cell);

@@ -3,6 +3,7 @@
 #include <vector>
 #include "../cell/Cell.hpp"
 #include <math.h>
+#include "../../src/Entities/Agent.cpp"
 
 using namespace std;
 
@@ -20,6 +21,9 @@ class Engine{
         //mouse position
         sf::Vector2i mouse_position;
         sf::Vector2f mouse_position_view;
+
+        //instantiating agent(Entity)
+        Agent agent;
         
     private:
         //grid related variabless

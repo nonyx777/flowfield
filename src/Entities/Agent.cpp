@@ -23,7 +23,7 @@ class Agent{
             int x = floor(this->agent_property.getPosition().x/size);
             int y = floor(this->agent_property.getPosition().y/size);
 
-            std::cout << grid[y][x].direction.x << " " << grid[y][x].direction.y << std::endl; 
+            this->agent_property.move(grid[y][x].direction * 2.f); 
         }
         void render(sf::RenderTarget* target){
             target->draw(this->agent_property);
