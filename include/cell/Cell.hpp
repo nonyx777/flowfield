@@ -9,7 +9,7 @@ class Cell{
         sf::RectangleShape cell_property;
     public:
         Cell();
-        Cell(sf::Vector2f size, sf::Vector2f position);
+        Cell(sf::Vector2f size, sf::Vector2f position, float angle);
         int column, row;
         sf::Color state;
     

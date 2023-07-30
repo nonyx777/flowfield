@@ -82,7 +82,7 @@ void Engine::configureGridLayout(int column, int row){
     for(int i = 0; i < this->row; i++){
         std::vector<Cell> vec_in;
         for(int j = 0; j < this->column; j++){
-            Cell cell = Cell(sf::Vector2f(this->size, this->size), sf::Vector2f(j * this->size, i * this->size));
+            Cell cell = Cell(sf::Vector2f(this->size, this->size), sf::Vector2f(j * this->size, i * this->size), 90.f);
             cell.column = j;
             cell.row = i;
             vec_in.push_back(cell);
