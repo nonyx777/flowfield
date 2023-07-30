@@ -103,16 +103,16 @@ float Utility::_clampOnRange(float x, float min, float max){
 //defining custom utility functions
 sf::Vector2f Utility::_clampDirection(sf::Vector2f direction){
     sf::Vector2f clamped_direction;
-    if(direction.x < 0.f)
+    if(direction.x < -0.2f)
         clamped_direction.x = -1.f;
-    else if(direction.x > 0.f)
+    else if(direction.x > 0.2f)
         clamped_direction.x = 1.f;
     else
         clamped_direction.x = 0.f;
     
-    if(direction.y < 0.f)
+    if(direction.y < -0.2f)
         clamped_direction.y = -1.f;
-    else if(direction.y > 0.f)
+    else if(direction.y > 0.2f)
         clamped_direction.y = 1.f;
     else
         clamped_direction.y = 0.f;
