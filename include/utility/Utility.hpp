@@ -34,4 +34,7 @@ class Utility{
 
         //...
         static float _clampOnRange(float x, float min, float max);
+
+        //custom functions
+        static sf::Vector2f _clampDirection(sf::Vector2f direction);
 };
