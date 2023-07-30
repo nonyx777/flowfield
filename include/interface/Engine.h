@@ -4,6 +4,9 @@
 #include "../cell/Cell.hpp"
 #include <math.h>
 #include "../../src/Entities/Agent.cpp"
+#include <random>
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 

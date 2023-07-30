@@ -68,11 +68,11 @@ void Engine::update(){
 void Engine::render(){
     this->window->clear(sf::Color::Black);
 
-    for(int i = 0; i < this->grid_vector.size(); i++){
-        for(int j = 0; j < this->grid_vector[i].size(); j++){
-            grid_vector[i][j].render(this->window);
-        }
-    }
+    // for(int i = 0; i < this->grid_vector.size(); i++){
+    //     for(int j = 0; j < this->grid_vector[i].size(); j++){
+    //         grid_vector[i][j].render(this->window);
+    //     }
+    // }
 
     this->agent.render(this->window);
 
@@ -83,10 +83,28 @@ void Engine::render(){
 
 //defining custom functions
 void Engine::configureGridLayout(int column, int row){
+    //array of angles
+    float angles[] = {0, 90};
+    int array_size = sizeof(angles)/sizeof(angles[0]);
+
+
+
     for(int i = 0; i < this->row; i++){
         std::vector<Cell> vec_in;
+        //get the current time as a duration since the epoch
+        auto current_time = std::chrono::high_resolution_clock::now().time_since_epoch();
+        //convert the duration to nanoseconds
+        long long seed = std::chrono::duration_cast<std::chrono::nanoseconds>(current_time).count();
+        //seed the random number generator with the current time
+        std::mt19937 rng(static_cast<unsigned int>(seed));
         for(int j = 0; j < this->column; j++){
-            Cell cell = Cell(sf::Vector2f(this->size, this->size), sf::Vector2f(j * this->size, i * this->size), 180.f);
+            //generate a random index within the array bounds
+            std::uniform_int_distribution<int> distribution(0, array_size-1);
+            int random_index = distribution(rng);
+            //access....
+            float angle_value = angles[random_index];
+
+            Cell cell = Cell(sf::Vector2f(this->size, this->size), sf::Vector2f(j * this->size, i * this->size), angle_value);
             cell.column = j;
             cell.row = i;
             vec_in.push_back(cell);
