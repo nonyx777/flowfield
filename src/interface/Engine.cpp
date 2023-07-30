@@ -10,10 +10,6 @@ void Engine::initVariables(){
     }catch(...){
         std::cout << "Couldn't load the font" << std::endl;
     }
-
-    //default values for start and end cell
-    this->startCell.column = this->startCell.row = -1;
-    this->endCell.column = this->endCell.row = -1;
 }
 void Engine::initWindow(){
     this->video_mode.width = 600;

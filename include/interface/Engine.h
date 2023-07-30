@@ -31,13 +31,6 @@ class Engine{
         //cell type represented by an integer
         int cell_type;
 
-        //start and end cell
-        Cell startCell, endCell;
-
-        //to track the prev cell...to revert it's color
-        int prev_row;
-        int prev_column;
-
         //text related variables
         sf::Font font;
         sf::Text text;
