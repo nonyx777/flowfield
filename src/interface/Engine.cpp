@@ -17,9 +17,9 @@ void Engine::initWindow(){
     this->window = new sf::RenderWindow(this->video_mode, "FindPath", sf::Style::Titlebar | sf::Style::Resize | sf::Style::Close);
     this->window->setFramerateLimit(60);
     //variables related with the grid
-    this->size = this->video_mode.width/20;
-    this->column = 20;
-    this->row = 20;
+    this->size = this->video_mode.width/30;
+    this->column = 30;
+    this->row = 30;
     //calling grid layout function
     this->configureGridLayout(this->column, this->row);
 }

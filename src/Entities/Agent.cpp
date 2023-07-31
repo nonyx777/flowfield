@@ -59,18 +59,18 @@ class Agent{
         void teleport(std::vector<std::vector<Cell>> &grid, int &size, int &y, int &x){
             switch(y){
                 case 1:
-                    this->agent_property.setPosition(this->agent_property.getPosition().x, float(18.f * size));
+                    this->agent_property.setPosition(this->agent_property.getPosition().x, float(28.f * size));
                     break;
-                case 19:
+                case 29:
                     this->agent_property.setPosition(sf::Vector2f(this->agent_property.getPosition().x, float(2.f * size)));
                     break;
             }
 
             switch(x){
                 case 1:
-                    this->agent_property.setPosition(float(18.f * size), this->agent_property.getPosition().y);
+                    this->agent_property.setPosition(float(28.f * size), this->agent_property.getPosition().y);
                     break;
-                case 19:
+                case 29:
                     this->agent_property.setPosition(sf::Vector2f(float(2.f * size), this->agent_property.getPosition().y));
                     break;
             }
