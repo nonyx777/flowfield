@@ -3,6 +3,7 @@
 #include <vector>
 #include <math.h>
 #include "../../include/cell/Cell.hpp"
+#include "../../include/utility/Utility.hpp"
 
 class Agent{
     private:
@@ -23,7 +24,20 @@ class Agent{
             int x = floor(this->agent_property.getPosition().x/size);
             int y = floor(this->agent_property.getPosition().y/size);
 
-            this->agent_property.move(grid[y][x].direction * 2.f); 
+            sf::Vector2f desired =  (this->agent_property.getPosition() + 
+            grid[y][x].direction * 10.f) - this->agent_property.getPosition();
+
+            desired = Utility::_unitVector(desired);
+            desired *= 5.f;
+
+            sf::Vector2f steer = desired - this->velocity;
+
+            //integration
+            this->acceleration = steer * 0.05f;
+            this->velocity += this->acceleration;
+            this->agent_property.move(this->velocity * 0.5f);
+
+            this->acceleration = sf::Vector2f(0.f, 0.f);
         }
         void render(sf::RenderTarget* target){
             target->draw(this->agent_property);
