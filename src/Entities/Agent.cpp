@@ -21,6 +21,22 @@ class Agent{
 
         //main ball functions
         void update(std::vector<std::vector<Cell>> &grid, int &size){
+            this->steer(grid, size);
+        }
+        void render(sf::RenderTarget* target){
+            target->draw(this->agent_property);
+        }
+
+        //accessors and mutators
+        sf::Vector2f getVelocity(){
+            return this->velocity;
+        }
+        void setVelocity(sf::Vector2f vector){
+            this->velocity = velocity;
+        }
+
+        //custom functions
+        void steer(std::vector<std::vector<Cell>> &grid, int &size){
             int x = floor(this->agent_property.getPosition().x/size);
             int y = floor(this->agent_property.getPosition().y/size);
 
@@ -38,16 +54,5 @@ class Agent{
             this->agent_property.move(this->velocity * 0.5f);
 
             this->acceleration = sf::Vector2f(0.f, 0.f);
-        }
-        void render(sf::RenderTarget* target){
-            target->draw(this->agent_property);
-        }
-
-        //accessors and mutators
-        sf::Vector2f getVelocity(){
-            return this->velocity;
-        }
-        void setVelocity(sf::Vector2f vector){
-            this->velocity = velocity;
         }
 };
