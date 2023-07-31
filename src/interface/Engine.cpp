@@ -69,9 +69,9 @@ void Engine::render(){
     this->window->clear(sf::Color::Black);
 
     // for(int i = 0; i < this->grid_vector.size(); i++){
-    //     for(int j = 0; j < this->grid_vector[i].size(); j++){
-    //         grid_vector[i][j].render(this->window);
-    //     }
+    //      for(int j = 0; j < this->grid_vector[i].size(); j++){
+    //          grid_vector[i][j].render(this->window);
+    //      }
     // }
 
     this->agent.render(this->window);
