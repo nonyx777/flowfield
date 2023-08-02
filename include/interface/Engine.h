@@ -25,8 +25,6 @@ class Engine{
         sf::Vector2i mouse_position;
         sf::Vector2f mouse_position_view;
 
-        //instantiating agent(Entity)
-        // Agent agent;
         //container for agents
         std::vector<Agent> agents;
         //agent related variables
@@ -40,10 +38,6 @@ class Engine{
         std::vector<std::vector<Cell>> grid_vector;
         //cell type represented by an integer
         int cell_type;
-
-        //text related variables
-        sf::Font font;
-        sf::Text text;
 
         //selected cells container
         sf::Vector2u selected_cell;
@@ -61,7 +55,6 @@ class Engine{
         //custom functions
         void configureGridLayout(int column, int row);
         void pointLocation(sf::Vector2f &mouse_position);
-        void setText(std::string particle_text);
 
         //Accessors
         const bool running() const;

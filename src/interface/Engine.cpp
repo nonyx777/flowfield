@@ -68,8 +68,6 @@ void Engine::update(){
     this->mouse_position = sf::Mouse::getPosition(*this->window);
     this->mouse_position_view = this->window->mapPixelToCoords(this->mouse_position);
 
-    // this->agent.update(this->grid_vector, this->size);
-
     for(Agent &agent : this->agents){
         agent.update(this->grid_vector, this->size);
     }
@@ -92,10 +90,6 @@ void Engine::render(){
     for(Agent &agent : this->agents){
         agent.render(this->window);
     }
-
-    // this->agent.render(this->window);
-
-    this->window->draw(this->text);
 
     this->window->display();
 }
@@ -140,11 +134,3 @@ void Engine::pointLocation(sf::Vector2f &mouse_position){
     this->selected_cell = sf::Vector2u(mouse_column, mouse_row);
     this->grid_vector[this->selected_cell.y][this->selected_cell.x].cell_property.setFillColor(sf::Color::Red);
 } 
-
-void Engine::setText(std::string particle_text){
-    this->text.setFont(this->font);
-    this->text.setString(particle_text);
-    this->text.setCharacterSize(18);
-    this->text.setFillColor(sf::Color::White);
-    this->text.setPosition(sf::Vector2f(this->video_mode.width/1.2f, this->video_mode.height/1.1f));
-}
