@@ -7,6 +7,7 @@
 #include <random>
 #include <ctime>
 #include <chrono>
+#include "../utility/Utility.hpp"
 
 using namespace std;
 

@@ -5,16 +5,20 @@ void Engine::initVariables(){
     this->window = nullptr;
 
     //assigning min and max spawning positions
-    this->min_x = 10.f;
-    this->max_x = 50.f;
-    this->min_y = 10.f;
-    this->max_y = 550.f;
+    this->min_x = 100.f;
+    this->max_x = 400.f;
+    this->min_y = 100.f;
+    this->max_y = 400.f;
+
 
     auto seed = std::chrono::duration_cast<std::chrono::milliseconds>(
         std::chrono::high_resolution_clock::now().time_since_epoch()).count();
 
     //instantiating agents
-    while(this->agents.size() < 2000){
+    //randomly palcing them between
+        //min_x -> max_x
+        //min_y -> max_y
+    while(this->agents.size() < 10000){
         float random_x = this->min_x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(this->max_x - this->min_x)));
         float random_y = this->min_y + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(this->max_y - this->min_y)));
         Agent agent = Agent();
@@ -71,12 +75,6 @@ void Engine::update(){
     for(Agent &agent : this->agents){
         agent.update(this->grid_vector, this->size);
     }
-
-    // for(int i = 0; i < this->grid_vector.size(); i++){
-    //     for(int j = 0; j < this->grid_vector[i].size(); j++){
-    //         this->grid_vector[i][j].update();
-    //     }
-    // }
 }
 void Engine::render(){
     this->window->clear(sf::Color::Black);
