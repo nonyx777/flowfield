@@ -4,13 +4,6 @@
 void Engine::initVariables(){
     this->window = nullptr;
 
-    //loading the font
-    try{
-        this->font.loadFromFile("../fonts/dejavu-sans/ttf/DejaVuSans.ttf");
-    }catch(...){
-        std::cout << "Couldn't load the font" << std::endl;
-    }
-
     //assigning min and max spawning positions
     this->min_x = 10.f;
     this->max_x = 50.f;
