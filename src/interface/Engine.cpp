@@ -10,6 +10,24 @@ void Engine::initVariables(){
     }catch(...){
         std::cout << "Couldn't load the font" << std::endl;
     }
+
+    //assigning min and max spawning positions
+    this->min_x = 10.f;
+    this->max_x = 50.f;
+    this->min_y = 10.f;
+    this->max_y = 550.f;
+
+    auto seed = std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::high_resolution_clock::now().time_since_epoch()).count();
+
+    //instantiating agents
+    while(this->agents.size() < 2000){
+        float random_x = this->min_x + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(this->max_x - this->min_x)));
+        float random_y = this->min_y + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(this->max_y - this->min_y)));
+        Agent agent = Agent();
+        agent.agent_property.setPosition(sf::Vector2f(random_x, random_y));
+        this->agents.push_back(agent);
+    }
 }
 void Engine::initWindow(){
     this->video_mode.width = 600;
@@ -57,7 +75,11 @@ void Engine::update(){
     this->mouse_position = sf::Mouse::getPosition(*this->window);
     this->mouse_position_view = this->window->mapPixelToCoords(this->mouse_position);
 
-    this->agent.update(this->grid_vector, this->size);
+    // this->agent.update(this->grid_vector, this->size);
+
+    for(Agent &agent : this->agents){
+        agent.update(this->grid_vector, this->size);
+    }
 
     // for(int i = 0; i < this->grid_vector.size(); i++){
     //     for(int j = 0; j < this->grid_vector[i].size(); j++){
@@ -74,7 +96,11 @@ void Engine::render(){
     //      }
     // }
 
-    this->agent.render(this->window);
+    for(Agent &agent : this->agents){
+        agent.render(this->window);
+    }
+
+    // this->agent.render(this->window);
 
     this->window->draw(this->text);
 

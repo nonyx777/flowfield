@@ -26,7 +26,11 @@ class Engine{
         sf::Vector2f mouse_position_view;
 
         //instantiating agent(Entity)
-        Agent agent;
+        // Agent agent;
+        //container for agents
+        std::vector<Agent> agents;
+        //agent related variables
+        float min_x, max_x, min_y, max_y;
         
     private:
         //grid related variabless
