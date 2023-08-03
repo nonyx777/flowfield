@@ -14,7 +14,7 @@ class Agent{
         //constructor
         Agent(){
             this->agent_property.setFillColor(sf::Color::White);
-            this->agent_property.setRadius(5.f);
+            this->agent_property.setRadius(1.f);
             this->agent_property.setOrigin(10.f, 10.f);
             this->agent_property.setPosition(600.f/2.f, 600.f/2.f);
         };
