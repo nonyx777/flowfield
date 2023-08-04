@@ -8,7 +8,6 @@ class Cell{
     public:
         sf::RectangleShape cell_property;
     public:
-        Cell();
         Cell(sf::Vector2f size, sf::Vector2f position, float angle);
         int column, row;
         sf::Color state;
@@ -18,6 +17,5 @@ class Cell{
         sf::Vector2f direction;
 
     public:
-        void update();
         void render(sf::RenderTarget* target);    
 };

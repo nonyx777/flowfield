@@ -99,20 +99,3 @@ float Utility::_clampOnRange(float x, float min, float max){
     else
         return x;
 }
-
-//defining custom utility functions
-void Utility::_clampDirection(sf::Vector2f &direction){
-    if(direction.x <= -0.5f)
-        direction.x = -1.f;
-    else if(direction.x >= 0.5f)
-        direction.x = 1.f;
-    else
-        direction.x = 0.f;
-    
-    if(direction.y <= -0.5f)
-        direction.y = -1.f;
-    else if(direction.y >= 0.5f)
-        direction.y = 1.f;
-    else
-        direction.y = 0.f;
-}

@@ -1,10 +1,6 @@
 #include "../../include/cell/Cell.hpp"
 
 //defining constructors
-Cell::Cell(){
-    //...
-}
-
 Cell::Cell(sf::Vector2f size, sf::Vector2f position, float angle){
     this->size = size;
 
@@ -27,9 +23,6 @@ Cell::Cell(sf::Vector2f size, sf::Vector2f position, float angle){
 }
 
 //defining functions
-void Cell::update(){
-    //...
-}
 void Cell::render(sf::RenderTarget* target){
     target->draw(this->cell_property);
 }
