@@ -60,9 +60,32 @@ void Engine::pollEvent(){
             case sf::Event::Closed:
                 this->window->close();
                 break;
-            case sf::Event::MouseButtonPressed:
-                if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                    this->pointLocation(this->mouse_position_view);
+            case sf::Event::KeyPressed:
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+                    this->is_right = false;
+                    this->is_left = true;
+                    this->pointLeft();
+                }
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+                    this->is_left = false;
+                    this->is_right = true;
+                    this->pointRight();
+                }
+                else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+                    this->is_up = false;
+                    this->is_down = true;
+                    this->pointDown();
+                }else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+                    this->is_down = false;
+                    this->is_up = true;
+                    this->pointUp();
+                }
+                else{
+                    this->is_left = this->is_left;
+                    this->is_right = this->is_right;
+                    this->is_up = this->is_up;
+                    this->is_down = this->is_down;
+                }
                 break;
         }
     }
@@ -122,13 +145,50 @@ void Engine::configureGridLayout(int column, int row){
         }
         this->grid_vector.push_back(vec_in);
     }
+    //.....
+    this->is_down = this->is_right = true;
 }
-void Engine::pointLocation(sf::Vector2f &mouse_position){
-    int mouse_row = floor(mouse_position.y/this->size);
-    int mouse_column = floor(mouse_position.x/this->size);
-
-    this->grid_vector[this->selected_cell.y][this->selected_cell.x].cell_property.setFillColor(sf::Color::Transparent);
-
-    this->selected_cell = sf::Vector2u(mouse_column, mouse_row);
-    this->grid_vector[this->selected_cell.y][this->selected_cell.x].cell_property.setFillColor(sf::Color::Red);
-} 
+void Engine::pointUp(){
+    for(int i = 0; i < this->grid_vector.size(); i++){
+        for(int j = 0; j < this->grid_vector[i].size(); j++){
+            if(this->grid_vector[i][j].pointing_down == true){
+                this->grid_vector[i][j].pointing_down = false;
+                this->grid_vector[i][j].pointing_up = true;
+                this->grid_vector[i][j].direction = sf::Vector2f(0.f, -1.f);
+            }
+        }
+    }
+}
+void Engine::pointDown(){
+    for(int i = 0; i < this->grid_vector.size(); i++){
+        for(int j = 0; j < this->grid_vector[i].size(); j++){
+            if(this->grid_vector[i][j].pointing_up == true){
+                this->grid_vector[i][j].pointing_up = false ;
+                this->grid_vector[i][j].pointing_down = true;
+                this->grid_vector[i][j].direction = sf::Vector2f(0.f, 1.f);
+            }
+        }
+    }
+}
+void Engine::pointLeft(){
+    for(int i = 0; i < this->grid_vector.size(); i++){
+        for(int j = 0; j < this->grid_vector[i].size(); j++){
+            if(this->grid_vector[i][j].pointing_right == true){
+                this->grid_vector[i][j].pointing_right = false;
+                this->grid_vector[i][j].pointing_left = true;
+                this->grid_vector[i][j].direction = sf::Vector2f(-1.f, 0.f);
+            }
+        }
+    }
+}
+void Engine::pointRight(){
+    for(int i = 0; i < this->grid_vector.size(); i++){
+        for(int j = 0; j < this->grid_vector[i].size(); j++){
+            if(this->grid_vector[i][j].pointing_left == true){
+                this->grid_vector[i][j].pointing_left = false;
+                this->grid_vector[i][j].pointing_right = true;
+                this->grid_vector[i][j].direction = sf::Vector2f(1.f, 0.f);
+            }
+        }
+    }
+}

@@ -7,6 +7,10 @@
 class Cell{
     public:
         sf::RectangleShape cell_property;
+        bool pointing_left;
+        bool pointing_right;
+        bool pointing_up;
+        bool pointing_down;
     public:
         Cell(sf::Vector2f size, sf::Vector2f position, float angle);
         int column, row;

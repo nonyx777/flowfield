@@ -30,6 +30,9 @@ class Engine{
         std::vector<Agent> agents;
         //agent related variables
         float min_x, max_x, min_y, max_y;
+
+        //direction variables
+        bool is_up, is_down, is_left, is_right;
         
     private:
         //grid related variabless
@@ -55,7 +58,10 @@ class Engine{
 
         //custom functions
         void configureGridLayout(int column, int row);
-        void pointLocation(sf::Vector2f &mouse_position);
+        void pointUp();
+        void pointDown();
+        void pointLeft();
+        void pointRight();
 
         //Accessors
         const bool running() const;
